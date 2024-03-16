@@ -1,6 +1,6 @@
 package Classes;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,10 +25,15 @@ public class Users {
         }
     }
 
-    public void MakePost(String text){ //Completo
-        Posts newPosts = new Posts(text, LocalDate.now());
+    /**
+     * Método que postar algo no mural do usuário que está logado
+     * @param content Conteudo da nova publicação
+     * */
+    public void MakePost(String content){ //Completo
+        Posts newPosts = new Posts(content, LocalDateTime.now());
         this.posts.add(newPosts);
     }
+
 
     public void FollowUser(String nameUser, UsersList usersList) { //Completo
         Users user = usersList.Follow(nameUser);
@@ -64,8 +69,10 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "nome='" + name + '\'' +
+        return "Users{" +
+                "name='" + name + '\'' +
+                ", posts=" + posts +
+                ", following=" + following +
                 '}';
     }
 }

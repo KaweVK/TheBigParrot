@@ -9,9 +9,10 @@ public class Main {
         final int createUser = 1;
         final int makePost = 2;
         final int followUser = 3;
-        final int showPosts = 4;
+        final int showPostsFromUser = 4;
         final int seeFollows = 5;
-        final int exit = 6;
+        final int showMural = 6;
+        final int exit = 7;
         int option;
 
         Users user = null;
@@ -31,19 +32,20 @@ public class Main {
                 System.out.println("Agora você está logado como " + user.toString());
             } else if (option == makePost) {
                 sc.nextLine();
-                if (user == null){
-                    System.out.println("Você deve ter um usuário para poder postar algo");
+                if (usersList.getUsers() == null){
+                    System.out.println("Você deve ter um usuário para poder postar algo.");
                     System.out.println("Digite o nome de usuário da nova conta: ");
                     String name = sc.nextLine();
                     user = new Users(name, usersList);
                 }
                 System.out.println("Digite o conteúdo da nova postagem.");
+                System.out.print("> " + user.getName() + " -> ");
                 String content = sc.nextLine();
                 user.MakePost(content);
-                System.out.println("Postado com sucesso!");
+                System.out.println("Postado com sucesso no mural de " + user);
             } else if (option == followUser) {
                 sc.nextLine();
-                if (user == null){
+                if (usersList.getUsers() == null){
                     System.out.println("Você deve ter um usuário para poder seguir alguém.");
                     System.out.println("Digite o nome de usuário da nova conta: ");
                     String name = sc.nextLine();
@@ -53,13 +55,27 @@ public class Main {
                 String userToFollow = sc.nextLine();
                 user.FollowUser(userToFollow, usersList);
                 System.out.println("usuário seguido!");
-            } else if (option == showPosts) {
+            } else if (option == showPostsFromUser) {
                 sc.nextLine();
+                if (usersList.getUsers() == null){
+                    System.out.println("Você deve ter um usuário para poder seguir alguém.");
+                    System.out.println("Digite o nome de usuário da nova conta: ");
+                    String name = sc.nextLine();
+                    user = new Users(name, usersList);
+                }
                 System.out.println("Usuario para ver o mural: ");
                 String userToShowMural = sc.nextLine();
-                System.out.println(usersList.showPosts(userToShowMural));
+                for (Posts post : usersList.showPostsFromUser(userToShowMural)) {
+                    System.out.println("> " + user.getName() + " -> " + post);
+                }
             } else if (option == seeFollows) {
                 sc.nextLine();
+                if (usersList.getUsers() == null){
+                    System.out.println("Você deve ter um usuário para poder seguir alguém.");
+                    System.out.println("Digite o nome de usuário da nova conta: ");
+                    String name = sc.nextLine();
+                    user = new Users(name, usersList);
+                }
                 System.out.println(user.getFollowing().toString());
             }
 
@@ -73,8 +89,9 @@ public class Main {
                 1 - Criar novo usuário;
                 2 - Postar;
                 3 - Seguir usuário;
-                4 - Ver mural;
+                4 - Ver postagens de um usuário;
                 5 - Ver seguindos;
-                6 - Sair;""";
+                6 - Ver mural;
+                7 - Sair;""";
     }
 }
