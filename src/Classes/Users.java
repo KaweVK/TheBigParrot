@@ -10,32 +10,30 @@ import java.util.Objects;
  * @author Kawe
  * */
 public class Users {
-    private String name;
+    private String name; //nome do usuário
     private List<Posts> posts = new ArrayList<>(); //lsita dos posts do usuário
     private List<Users> following = new ArrayList<>(); //lista de usuários seguindo
 
     /**
+     * Construtor da classe Users
+     * @param name Nome do usuário
+     * @param usersList Lista de usuários que armazena os atuais usuários
      * */
-    public Users(String name, UsersList usersList) {
+    public Users(String name, UsersList usersList) { //Completo
         if (!usersList.getUsers().contains(name)){
             this.name = name;
         }
     }
 
-    public void MakePost(String text){
+    public void MakePost(String text){ //Completo
         Posts newPosts = new Posts(text, LocalDate.now());
         this.posts.add(newPosts);
     }
 
-    public void MakePost(String text, String name){
-
-    }
-
-    public void FollowUser(String nameUser, UsersList usersList) {
-        for (Users users : usersList.getUsers()) {
-            if (users.equals(nameUser)){
-                following.add(users);
-            }
+    public void FollowUser(String nameUser, UsersList usersList) { //Completo
+        Users user = usersList.Follow(nameUser);
+        if (user != null) {
+            following.add(user);
         }
     }
 

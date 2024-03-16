@@ -11,16 +11,25 @@ public class UsersList {
         return users;
     }
 
-    public List<Posts> showPosts(String name) {
+    public List<Posts> showPosts(String userName) {
         for (Users users : users) {
-            if (users.getName().equals(name)) {
+            if (users.getName().equals(userName)) {
                 return users.getPosts();
             }
         }
         return null;
     }
 
-    public void insertUser(Users user){
+    public Users Follow(String userName) {
+        for (Users users: users) {
+            if (users.getName().equals(userName)) {
+                return users;
+            }
+        }
+        return null;
+    }
+
+    public void insertUser(Users user) {
         users.add(user);
     }
 }

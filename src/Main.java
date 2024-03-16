@@ -37,15 +37,22 @@ public class Main {
                     String name = sc.nextLine();
                     user = new Users(name, usersList);
                 }
-                System.out.println("Digite o conteúdo da nova postagem");
+                System.out.println("Digite o conteúdo da nova postagem.");
                 String content = sc.nextLine();
                 user.MakePost(content);
-                System.out.println("Postado com sucesso");
+                System.out.println("Postado com sucesso!");
             } else if (option == followUser) {
                 sc.nextLine();
+                if (user == null){
+                    System.out.println("Você deve ter um usuário para poder seguir alguém.");
+                    System.out.println("Digite o nome de usuário da nova conta: ");
+                    String name = sc.nextLine();
+                    user = new Users(name, usersList);
+                }
                 System.out.println("Usuário que você quer seguir: ");
                 String userToFollow = sc.nextLine();
                 user.FollowUser(userToFollow, usersList);
+                System.out.println("usuário seguido!");
             } else if (option == showPosts) {
                 sc.nextLine();
                 System.out.println("Usuario para ver o mural: ");
