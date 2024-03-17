@@ -16,23 +16,31 @@ public class Users {
 
     /**
      * Construtor da classe Users
-     * @param name Nome do usuário
+     * @param userName Nome do usuário
      * @param usersList Lista de usuários que armazena os atuais usuários
+     * @throws Exception O nome de usuário deve ser único
      * */
-    public Users(String name, UsersList usersList) { //Completo
-        if (!usersList.getUsers().contains(name)){
-            this.name = name;
+    public Users(String userName, UsersList usersList) throws Exception { //Completo
+        if (usersList.getUsers().contains(userName)){
+            throw new Exception("Nome de usuário já está em uso.");
         }
+        this.name = userName;
     }
 
     /**
      * Método que postar algo no mural do usuário que for indicado
-     * @param user Usuário que vai fazer a nova publicação
+     * @param userName Usuário que vai fazer a nova publicação
      * @param content Conteudo da nova publicação
-     * @param usersList Lista de usuários onde se encontra o usuário que vai fazer a postagem
+     * @param usersList Lista de usuários que armazena o usuário que vai fazer a postagem
+     * @throws Exception O nome do usuário nem o conteúdo da publicação podem ser nulos ou vazios
      * */
-    public void makePost(String user, String content, UsersList usersList){ //Completo
-        Users userToPost = usersList.getOneUser(user);
+    public void makePost(String userName, String content, UsersList usersList) throws  Exception { //Completo
+        if (userName == null || userName.trim().isEmpty()) {
+            throw new Exception("O nome do usuário não pode ser nulo ou vazio");
+        } else if (content == null || content.trim().isEmpty()) {
+            throw new Exception("O conteúdo da publicação não pode ser nulo ou vazio");
+        }
+        Users userToPost = usersList.getOneUser(userName, usersList);
         Posts newPosts = new Posts(content, LocalDateTime.now());
         userToPost.posts.add(newPosts);
     }
@@ -40,18 +48,28 @@ public class Users {
     /**
      * Método para seguir um usuário que esteja cadastrado no Grande Papagaio
      * @param nameOfUserToFollow Nome do usuário que deseja seguir
-     * @param usersList Lista de usuários onde o usuário informado no último parâmetro deve se encontrar*/
-    public void followUser(String nameOfUserWhoWillFollow, String nameOfUserToFollow, UsersList usersList) { //Completo
-        Users userWhoWillFollow = usersList.getOneUser(nameOfUserWhoWillFollow);
-        Users userToFollow = usersList.getOneUser(nameOfUserToFollow);
-        if (userToFollow != null) {
-            userWhoWillFollow.following.add(userToFollow);
-        }//lançar excessão que não pode ser nulo
+     * @param usersList Lista de usuários que armazena o usuário informado no último parâmetro
+     * @throws Exception O nome do usuário (seguidor ou seguindo) não pode ser nulo ou vazio
+     * */
+    public void followUser(String nameOfUserWhoWillFollow, String nameOfUserToFollow, UsersList usersList) throws Exception { //Completo
+        if (nameOfUserWhoWillFollow == null || nameOfUserWhoWillFollow.trim().isEmpty() || nameOfUserToFollow == null || nameOfUserToFollow.trim().isEmpty()) {
+            throw new Exception("O nome do usuário não pode ser nulo ou vazio");
+        }
+        if (!usersList.hasUser(nameOfUserToFollow)){
+            throw new Exception("O usuário que você quer seguir não está registrado");
+        }
+        Users userWhoWillFollow = usersList.getOneUser(nameOfUserWhoWillFollow, usersList);
+        Users userToFollow = usersList.getOneUser(nameOfUserToFollow, usersList);
+        userWhoWillFollow.following.add(userToFollow);
     }
 
+    /**
+     * Método para mostrar o mural que vai aparecer para o usuário de acordo com os usuários que ele segue
+     * @param usersList Lista de usuários onde estão os usuários que podem aparecer no mural
+     * */
     public void showMural(UsersList usersList) {
         for (Users user : usersList.getUsers()){
-            if (following.contains(user)){
+            if (following.contains(user) || user.getName().equals(name)){
                 user.getPosts();
             }
         }

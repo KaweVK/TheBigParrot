@@ -12,7 +12,10 @@ public class UsersList {
         return users;
     }
 
-    public List<Posts> showPostsFromUser(String userName) {
+    public List<Posts> showPostsFromUser(String userName) throws Exception {
+        if (userName == null || userName.trim().isEmpty()){
+            throw new Exception("O usuário não pode ser nulo ou vazio");
+        }
         for (Users users : users) {
             if (users.equals(userName)) {
                 return users.getPosts();
@@ -21,13 +24,28 @@ public class UsersList {
         return null;
     }
 
-    public Users getOneUser(String userName) {
+    public Users getOneUser(String userName, UsersList usersList) throws Exception {
+        if (userName == null || userName.trim().isEmpty()) {
+            throw new Exception("O nome do usuário não pode ser nulo ou vazio");
+        }
+        if (!usersList.hasUser(userName)){
+            throw new Exception("O usuário não foi encontrado");
+        }
         for (Users users: users) {
             if (users.getName().equals(userName)) {
                 return users;
             }
         }
         return null;
+    }
+
+    public boolean hasUser(String userName) {
+        for (Users users: users) {
+            if (users.getName().equals(userName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void insertUser(Users user) {
