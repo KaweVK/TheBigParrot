@@ -1,3 +1,5 @@
+package Main;
+
 import Classes.Posts;
 import Classes.Users;
 import Classes.UsersList;
@@ -29,40 +31,54 @@ public class Main {
                 String name = sc.nextLine();
                 user = new Users(name, usersList);
                 usersList.insertUser(user);
-                System.out.println("Agora você está logado como " + user.toString());
-            } else if (option == makePost) {
+                System.out.println("Agora você está logado como " + user.getName());
+            } else if (option == makePost) { //precisa de modificação para receber o usuário que vai fazer o post (o método já está corrigido)
                 sc.nextLine();
-                if (usersList.getUsers() == null){
+                System.out.print("Meu usuário: > ");
+                String myUser = sc.nextLine();
+                /*if (!usersList.getOneUser().getName()){
                     System.out.println("Você deve ter um usuário para poder postar algo.");
                     System.out.println("Digite o nome de usuário da nova conta: ");
                     String name = sc.nextLine();
                     user = new Users(name, usersList);
-                }
-                System.out.println("Digite o conteúdo da nova postagem.");
-                System.out.print("> " + user.getName() + " -> ");
+                    usersList.insertUser(user);
+                }*/
+                System.out.println("Conteúdo da nova postagem: ->");
                 String content = sc.nextLine();
-                user.MakePost(content);
-                System.out.println("Postado com sucesso no mural de " + user);
-            } else if (option == followUser) {
+                user.makePost(myUser, content, usersList);
+                System.out.println("Postado com sucesso no mural de " + usersList.getOneUser(myUser));
+            } else if (option == followUser) { //modificar para dizer quem é o usuário
                 sc.nextLine();
-                if (usersList.getUsers() == null){
+                System.out.println("Meu usuário: > ");
+                String myUser = sc.nextLine();
+                boolean haveUser = false;
+               /* do{
+                    for (Users userTest : usersList.getUsers()) {
+                        if (userTest.getName().equals(myUser)) {
+                            haveUser = true;
+                        }
+                    }
+                } while (!haveUser);
+                if (!haveUser) {
                     System.out.println("Você deve ter um usuário para poder seguir alguém.");
                     System.out.println("Digite o nome de usuário da nova conta: ");
                     String name = sc.nextLine();
                     user = new Users(name, usersList);
-                }
+                    usersList.insertUser(user);
+                }*/
                 System.out.println("Usuário que você quer seguir: ");
                 String userToFollow = sc.nextLine();
-                user.FollowUser(userToFollow, usersList);
+                user.followUser(myUser, userToFollow, usersList);
                 System.out.println("usuário seguido!");
             } else if (option == showPostsFromUser) {
                 sc.nextLine();
-                if (usersList.getUsers() == null){
+                /*if (usersList.getUsers() == null){
                     System.out.println("Você deve ter um usuário para poder seguir alguém.");
                     System.out.println("Digite o nome de usuário da nova conta: ");
                     String name = sc.nextLine();
                     user = new Users(name, usersList);
-                }
+                    usersList.insertUser(user);
+                }*/
                 System.out.println("Usuario para ver o mural: ");
                 String userToShowMural = sc.nextLine();
                 for (Posts post : usersList.showPostsFromUser(userToShowMural)) {
@@ -70,13 +86,16 @@ public class Main {
                 }
             } else if (option == seeFollows) {
                 sc.nextLine();
-                if (usersList.getUsers() == null){
+                /*if (usersList.getUsers() == null){
                     System.out.println("Você deve ter um usuário para poder seguir alguém.");
                     System.out.println("Digite o nome de usuário da nova conta: ");
                     String name = sc.nextLine();
                     user = new Users(name, usersList);
-                }
+                    usersList.insertUser(user);
+                }*/
                 System.out.println(user.getFollowing().toString());
+            } else if (option == showMural) {
+
             }
 
         }while (option != exit);

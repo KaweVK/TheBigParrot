@@ -26,22 +26,38 @@ public class Users {
     }
 
     /**
-     * Método que postar algo no mural do usuário que está logado
+     * Método que postar algo no mural do usuário que for indicado
+     * @param user Usuário que vai fazer a nova publicação
      * @param content Conteudo da nova publicação
+     * @param usersList Lista de usuários onde se encontra o usuário que vai fazer a postagem
      * */
-    public void MakePost(String content){ //Completo
+    public void makePost(String user, String content, UsersList usersList){ //Completo
+        Users userToPost = usersList.getOneUser(user);
         Posts newPosts = new Posts(content, LocalDateTime.now());
-        this.posts.add(newPosts);
+        userToPost.posts.add(newPosts);
     }
 
+    /**
+     * Método para seguir um usuário que esteja cadastrado no Grande Papagaio
+     * @param nameOfUserToFollow Nome do usuário que deseja seguir
+     * @param usersList Lista de usuários onde o usuário informado no último parâmetro deve se encontrar*/
+    public void followUser(String nameOfUserWhoWillFollow, String nameOfUserToFollow, UsersList usersList) { //Completo
+        Users userWhoWillFollow = usersList.getOneUser(nameOfUserWhoWillFollow);
+        Users userToFollow = usersList.getOneUser(nameOfUserToFollow);
+        if (userToFollow != null) {
+            userWhoWillFollow.following.add(userToFollow);
+        }//lançar excessão que não pode ser nulo
+    }
 
-    public void FollowUser(String nameUser, UsersList usersList) { //Completo
-        Users user = usersList.Follow(nameUser);
-        if (user != null) {
-            following.add(user);
+    public void showMural(UsersList usersList) {
+        for (Users user : usersList.getUsers()){
+            if (following.contains(user)){
+                user.getPosts();
+            }
         }
     }
 
+    //completos:
     public String getName() {
         return name;
     }

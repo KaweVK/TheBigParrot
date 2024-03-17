@@ -14,14 +14,14 @@ public class UsersList {
 
     public List<Posts> showPostsFromUser(String userName) {
         for (Users users : users) {
-            if (users.getName().equals(userName)) {
+            if (users.equals(userName)) {
                 return users.getPosts();
             }
         }
         return null;
     }
 
-    public Users Follow(String userName) {
+    public Users getOneUser(String userName) {
         for (Users users: users) {
             if (users.getName().equals(userName)) {
                 return users;
