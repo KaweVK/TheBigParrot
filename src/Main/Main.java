@@ -17,7 +17,7 @@ public class Main {
         final int exit = 7;
         int option;
 
-        Users user = null;
+        Users user;
         UsersList usersList = new UsersList();
         Scanner sc = new Scanner(System.in);
 
@@ -28,13 +28,20 @@ public class Main {
             System.out.println(menu());
             option = sc.nextInt();
 
-            if (option == createUser){ //completo 98%, trocar as palavras e botar o try catch
+            if (option == createUser){ //completo
                 sc.nextLine();
                 System.out.println("Nome de usuário da nova conta: > ");
                 String myUser = sc.nextLine();
-                user = new Users(myUser, usersList);
+                try {
+                    user = new Users(myUser, usersList);
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                    System.out.println("Escolha outro nome de usuário: > ");
+                    myUser = sc.nextLine();
+                    user = new Users(myUser, usersList);
+                }
                 usersList.insertUser(user);
-                System.out.println("Agora você está logado como " + user.getName());
+                System.out.println("Novo usuário " + user.getName() + " criado com sucesso");
             } else if (option == makePost) {
                 sc.nextLine();
                 System.out.print("Meu usuário: > ");

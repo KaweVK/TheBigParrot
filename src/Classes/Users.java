@@ -21,8 +21,11 @@ public class Users {
      * @throws Exception O nome de usuário deve ser único
      * */
     public Users(String userName, UsersList usersList) throws Exception { //Completo
-        if (usersList.getUsers().contains(userName)){
-            throw new Exception("Nome de usuário já está em uso.");
+        if (usersList.hasUser(userName)){
+            throw new Exception("Nome de usuário já está em uso");
+        }
+        if (userName == null || userName.trim().isEmpty()){
+            throw new Exception("O nome de usuário não pode ser nulo ou vazio");
         }
         this.name = userName;
     }
