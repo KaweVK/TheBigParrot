@@ -3,10 +3,19 @@ package Classes;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Classe Posts do sistema de postagens do Grande Papagaio
+ * @author Kawe
+ * */
 public class Posts {
     private String content;
     private LocalDateTime date;
 
+    /**
+     * Construtor da classe Posts
+     * @param content Conteúdo escrito da publicação
+     * @param data Data e hora da publicação
+     * */
     public Posts(String content, LocalDateTime data ) {
         this.content = content;
         this.date = data;
@@ -41,6 +50,10 @@ public class Posts {
                 '}';
     }
 
+    /**
+     * Método para mostrar um post formatado com conteúdo, data e hora
+     * @return Retorna uma String formatada do post
+     * */
     public String showPost() {
         return getContent() + " (" + getDate().getDayOfMonth() + "/" + getDate().getMonth() + "/" + getDate().getYear() + " " + getDate().getHour() + ":" + getDate().getMinute() + ")";
     }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Classe para criação de usuários de uma rede social
+ * Classe de Users do Grande Papagaio
  * @author Kawe
  * */
 public class Users {
@@ -17,7 +17,7 @@ public class Users {
     /**
      * Construtor da classe Users
      * @param userName Nome do usuário
-     * @param usersList Lista de usuários que armazena os atuais usuários
+     * @param usersList Repositório de usuários que armazena os atuais usuários
      * @throws Exception O nome de usuário deve ser único, e não pode ser vazio ou nulo
      * */
     public Users(String userName, UsersList usersList) throws Exception { //Completo
@@ -25,16 +25,16 @@ public class Users {
             throw new Exception("Nome de usuário já está em uso");
         }
         if (userName == null || userName.trim().isEmpty()){
-            throw new Exception("O nome de usuário não pode ser nulo ou vazio");
+            throw new Exception("O nome do usuário não pode ser nulo ou vazio");
         }
         this.name = userName;
     }
 
     /**
-     * Método que postar algo no mural do usuário que for indicado
+     * Método para postar algo no mural do usuário que for indicado
      * @param userName Usuário que vai fazer a nova publicação
      * @param content Conteudo da nova publicação
-     * @param usersList Lista de usuários que armazena o usuário que vai fazer a postagem
+     * @param usersList Repositório de usuários que armazena o usuário que vai fazer a postagem
      * @throws Exception O nome do usuário deve estar registrado, e nem ele nem o conteúdo da publicação podem ser nulos ou vazios
      * */
     public void makePost(String userName, String content, UsersList usersList) throws  Exception { //Completo
@@ -52,12 +52,13 @@ public class Users {
      * Método para seguir um usuário que esteja cadastrado no Grande Papagaio
      * @param nameOfUserWhoWillFollow Nome do usuário que está logado e vai começar a seguir outro
      * @param nameOfUserToFollow Nome do usuário que deseja seguir
-     * @param usersList Lista de usuários que armazena o usuário informado no último parâmetro
+     * @param usersList Repositório de usuários que armazena o usuário informado no último parâmetro
      * @throws Exception O nome do usuário (seguidor ou seguindo) não pode ser nulo ou vazio
+     * @throws Exception Você não pode seguir a si próprio
      * */
     public void followUser(String nameOfUserWhoWillFollow, String nameOfUserToFollow, UsersList usersList) throws Exception { //Completo
         if (nameOfUserWhoWillFollow == null || nameOfUserWhoWillFollow.trim().isEmpty() || nameOfUserToFollow == null || nameOfUserToFollow.trim().isEmpty()) {
-            throw new Exception("Usuário inválido");
+            throw new Exception("O nome do usuário não pode ser nulo ou vazio");
         }
         if (!usersList.hasUser(nameOfUserToFollow)){
             throw new Exception("O usuário que você quer seguir não está registrado");
@@ -72,7 +73,8 @@ public class Users {
 
     /**
      * Método para mostrar o mural que vai aparecer para o usuário de acordo com os usuários que ele segue
-     * @param usersList Lista de usuários onde estão os usuários que podem aparecer no mural
+     * @param usersList Repositório de usuários onde estão os usuários que podem aparecer no mural
+     * @return Retorna uma string com todas as publicações dos usuários que o usuário segue
      * */
     public String showMural(UsersList usersList) {
         String mural = "";
@@ -86,7 +88,9 @@ public class Users {
         return mural;
     }
 
-
+    /**
+     * Método para mostrar usuários que determinado usuário segue
+     * @return Retorna uma String de todos os usuários que aquele usuário segue*/
     public String showFollowing(){
         String following = "";
         for (Users user : this.following) {

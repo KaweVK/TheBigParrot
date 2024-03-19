@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * Classe UserList, repositório de objetos da classe Users
+ * @author Kawe
+ * */
 public class UsersList {
     private List<Users> users = new ArrayList<>();
 
@@ -12,9 +15,19 @@ public class UsersList {
         return users;
     }
 
-    public String showPostsFromUser(String userName) throws Exception {
+    /**
+     * Método para mostrar todos os posts referentes a um usuário
+     * @param userName Nome do usuário que deseja mostrar os posts
+     * @param usersList Repositório de usuários onde o usuário está registrado
+     * @throws Exception O usuário não pode ser nulo ou vazio
+     * @throws Exception O usuário não foi encontrado no repositório
+     * @return Caso o usuário possua posts, retorna todos os posts do usuário
+     * */
+    public String showPostsFromUser(String userName, UsersList usersList) throws Exception {
         if (userName == null || userName.trim().isEmpty()){
             throw new Exception("O usuário não pode ser nulo ou vazio");
+        } else if (!usersList.hasUser(userName)) {
+            throw new Exception("O usuário não foi encontrado");
         }
         for (Users user : users) {
             if (user.getName().equals(userName)) {
@@ -28,11 +41,18 @@ public class UsersList {
         return userName + " ainda não publicou nada";
     }
 
+    /**
+     * Método para se obter um usuário
+     * @param userName Nome do usuário que se deseja obter
+     * @param usersList Repositório onde o usuário está registrado
+     * @throws Exception O nome do usuário não pode ser nulo ou vazio
+     * @throws Exception O usuário não foi encontrado no repositório
+     * @return Retorna o objeto da classe Users referente ao usuário
+     * */
     public Users getOneUser(String userName, UsersList usersList) throws Exception {
         if (userName == null || userName.trim().isEmpty()) {
             throw new Exception("O nome do usuário não pode ser nulo ou vazio");
-        }
-        if (!usersList.hasUser(userName)){
+        } else if (!usersList.hasUser(userName)){
             throw new Exception("O usuário não foi encontrado");
         }
         for (Users users: users) {
@@ -43,6 +63,11 @@ public class UsersList {
         return null;
     }
 
+    /**
+     * Método para saber se um usuário está registrado no repositório
+     * @param userName Nome do usuário que se deseja obter
+     * @return Retorna um boolean True, se o objeto estiver no reporitório e, do contrário, retorna False
+     * */
     public boolean hasUser(String userName) {
         for (Users users: users) {
             if (users.getName().equals(userName)) {
@@ -52,6 +77,10 @@ public class UsersList {
         return false;
     }
 
+    /**
+     * Método para registrar um usuário no respositório
+     * @param user Objeto da classe Users que vai ser inserido no repositório
+     * */
     public void insertUser(Users user) {
         users.add(user);
     }
