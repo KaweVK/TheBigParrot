@@ -50,13 +50,14 @@ public class Users {
 
     /**
      * Método para seguir um usuário que esteja cadastrado no Grande Papagaio
+     * @param nameOfUserWhoWillFollow Nome do usuário que está logado e vai começar a seguir outro
      * @param nameOfUserToFollow Nome do usuário que deseja seguir
      * @param usersList Lista de usuários que armazena o usuário informado no último parâmetro
      * @throws Exception O nome do usuário (seguidor ou seguindo) não pode ser nulo ou vazio
      * */
     public void followUser(String nameOfUserWhoWillFollow, String nameOfUserToFollow, UsersList usersList) throws Exception { //Completo
         if (nameOfUserWhoWillFollow == null || nameOfUserWhoWillFollow.trim().isEmpty() || nameOfUserToFollow == null || nameOfUserToFollow.trim().isEmpty()) {
-            throw new Exception("O nome do usuário não pode ser nulo ou vazio");
+            throw new Exception("Usuário inválido");
         }
         if (!usersList.hasUser(nameOfUserToFollow)){
             throw new Exception("O usuário que você quer seguir não está registrado");

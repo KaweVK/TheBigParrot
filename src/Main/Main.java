@@ -66,7 +66,7 @@ public class Main {
                     user.makePost(myUser, content, usersList);
                 }
                 System.out.println("Postado com sucesso no mural de " + user.getName());
-            } else if (option == followUser) { //acho que tá em 90%
+            } else if (option == followUser) { //completo
                 sc.nextLine();
                 System.out.print("Meu usuário: > ");
                 String myUser = sc.nextLine();
@@ -74,7 +74,6 @@ public class Main {
                     user = usersList.getOneUser(myUser, usersList);
                 } catch (Exception e){
                     System.out.println(e.getMessage());
-                    System.out.println();
                     System.out.println("Nome de usuário da nova conta: > ");
                     myUser = sc.nextLine();
                     user = new Users(myUser, usersList);
@@ -87,11 +86,14 @@ public class Main {
                     System.out.println(user.getName() + " agora segue " + userNameToFollow);
                 } catch (Exception e){
                     System.out.println(e.getMessage());
-                    System.out.println("Tente seguir um usuário válido");
+                    System.out.println("Usuário que você quer seguir: > ");
+                    userNameToFollow = sc.nextLine();
                 }
+                user.followUser(myUser, userNameToFollow, usersList);
+                System.out.println(user.getName() + " agora segue " + userNameToFollow);
             } else if (option == showPostsFromUser) { //completo 98% falta só trocar as escritas
                 sc.nextLine();
-                System.out.println("Usuario para ver o mural: ");
+                System.out.println("Usuario para ver o mural: > ");
                 String userToShowMural = sc.nextLine();
                 user = usersList.getOneUser(userToShowMural, usersList);
                 for (Posts post : user.getPosts()) {
