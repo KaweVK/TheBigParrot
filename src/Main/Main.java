@@ -102,10 +102,11 @@ public class Main {
                     userToShowMural = sc.nextLine();
                     System.out.println(usersList.showPostsFromUser(userToShowMural));
                 }
-            } else if (option == seeFollows) { //loop infinito
+            } else if (option == seeFollows) { //completo
                 sc.nextLine();
                 System.out.print("Meu usuário: > ");
                 String myUser = sc.nextLine();
+                System.out.println();
                 try{
                     user = usersList.getOneUser(myUser, usersList);
                 } catch (Exception e){
@@ -115,8 +116,8 @@ public class Main {
                     user = new Users(myUser, usersList);
                     usersList.insertUser(user);
                 }
-                System.out.println("Usuários que você segue: " + user.getFollowing());
-            } else if (option == showMural) {
+                System.out.println("Usuários que você segue: \n" + user.showFollowing());
+            } else if (option == showMural) { //completo
                 sc.nextLine();
                 System.out.print("Meu usuário: > ");
                 String myUser = sc.nextLine();

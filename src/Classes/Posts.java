@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Posts {
     private String content;
-    private LocalDateTime date = LocalDateTime.now();
+    private LocalDateTime date;
 
     public Posts(String content, LocalDateTime data ) {
         this.content = content;
@@ -35,6 +35,13 @@ public class Posts {
 
     @Override
     public String toString() {
-        return content + " (" + getDate().getDayOfMonth() + "/" + getDate().getMonth() + "/" + getDate().getYear() + " " +getDate().getHour() + ":" + getDate().getMinute() + ")";
+        return "Posts{" +
+                "content='" + content + '\'' +
+                ", date=" + date +
+                '}';
+    }
+
+    public String showPost() {
+        return getContent() + " (" + getDate().getDayOfMonth() + "/" + getDate().getMonth() + "/" + getDate().getYear() + " " + getDate().getHour() + ":" + getDate().getMinute() + ")";
     }
 }

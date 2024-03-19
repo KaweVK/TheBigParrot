@@ -20,7 +20,7 @@ public class UsersList {
             if (user.getName().equals(userName)) {
                 String posts = "";
                 for (Posts post : user.getPosts()) {
-                    posts += "> " + user.getName() + " -> " + post + "\n";
+                    posts += "> " + user.getName() + " -> " + post.showPost() + "\n";
                 }
                 return posts;
             }

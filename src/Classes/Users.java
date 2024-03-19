@@ -79,14 +79,22 @@ public class Users {
         for (Users user : usersList.getUsers()){
             if (following.contains(user) || user.getName().equals(name)){
                 for (Posts post : user.getPosts()){
-                    mural += "> " + user.getName() + " -> " + post + "\n";
+                    mural += "> " + user.getName() + " -> " + post.showPost() + "\n";
                 }
             }
         }
         return mural;
     }
 
-    //completos:
+
+    public String showFollowing(){
+        String following = "";
+        for (Users user : this.following) {
+            following += "> " + user.getName() + "\n";
+        }
+        return following.toString();
+    }
+
     public String getName() {
         return name;
     }
