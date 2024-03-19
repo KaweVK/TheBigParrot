@@ -30,13 +30,13 @@ public class Main {
 
             if (option == createUser){ //completo
                 sc.nextLine();
-                System.out.println("Nome de usuário da nova conta: > ");
+                System.out.print("Nome de usuário da nova conta: > ");
                 String myUser = sc.nextLine();
                 try {
                     user = new Users(myUser, usersList);
                 } catch (Exception e){
                     System.out.println(e.getMessage());
-                    System.out.println("Escolha outro nome de usuário: > ");
+                    System.out.print("Digite outro nome de usuário: > ");
                     myUser = sc.nextLine();
                     user = new Users(myUser, usersList);
                 }
@@ -50,18 +50,18 @@ public class Main {
                     user = usersList.getOneUser(myUser, usersList);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                    System.out.println("Escolha outro nome de usuário: > ");
+                    System.out.print("Digite outro nome de usuário: > ");
                     myUser = sc.nextLine();
                     user = new Users(myUser, usersList);
                     usersList.insertUser(user);
                 }
-                System.out.print("Conteúdo da nova postagem: ->");
+                System.out.print("Conteúdo da nova postagem: -> ");
                 String content = sc.nextLine();
                 try {
                     user.makePost(myUser, content, usersList);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                    System.out.print("Conteúdo da nova postagem: ->");
+                    System.out.print("Conteúdo da nova postagem: -> ");
                     content = sc.nextLine();
                     user.makePost(myUser, content, usersList);
                 }
@@ -74,7 +74,7 @@ public class Main {
                     user = usersList.getOneUser(myUser, usersList);
                 } catch (Exception e){
                     System.out.println(e.getMessage());
-                    System.out.println("Nome de usuário da nova conta: > ");
+                    System.out.print("Nome de usuário da nova conta: > ");
                     myUser = sc.nextLine();
                     user = new Users(myUser, usersList);
                     usersList.insertUser(user);
@@ -83,21 +83,24 @@ public class Main {
                 String userNameToFollow = sc.nextLine();
                 try {
                     user.followUser(myUser, userNameToFollow, usersList);
-                    System.out.println(user.getName() + " agora segue " + userNameToFollow);
                 } catch (Exception e){
                     System.out.println(e.getMessage());
-                    System.out.println("Usuário que você quer seguir: > ");
+                    System.out.print("Usuário que você quer seguir: > ");
                     userNameToFollow = sc.nextLine();
+                    user.followUser(myUser, userNameToFollow, usersList);
                 }
-                user.followUser(myUser, userNameToFollow, usersList);
                 System.out.println(user.getName() + " agora segue " + userNameToFollow);
             } else if (option == showPostsFromUser) { //completo 98% falta só trocar as escritas
                 sc.nextLine();
-                System.out.println("Usuario para ver o mural: > ");
+                System.out.print("Usuario para ver o mural: > ");
                 String userToShowMural = sc.nextLine();
-                user = usersList.getOneUser(userToShowMural, usersList);
-                for (Posts post : user.getPosts()) {
-                    System.out.println("> " + user.getName() + " -> " + post);
+                try {
+                    System.out.println(usersList.showPostsFromUser(userToShowMural));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    System.out.print("Usuario para ver o mural: > ");
+                    userToShowMural = sc.nextLine();
+                    System.out.println(usersList.showPostsFromUser(userToShowMural));
                 }
             } else if (option == seeFollows) { //loop infinito
                 sc.nextLine();
@@ -107,7 +110,7 @@ public class Main {
                     user = usersList.getOneUser(myUser, usersList);
                 } catch (Exception e){
                     System.out.println(e.getMessage());
-                    System.out.println("Digite o nome de usuário da nova conta: ");
+                    System.out.println("Nome de usuário da nova conta: > ");
                     myUser = sc.nextLine();
                     user = new Users(myUser, usersList);
                     usersList.insertUser(user);

@@ -41,7 +41,7 @@ public class Users {
         if (userName == null || userName.trim().isEmpty()) {
             throw new Exception("O nome do usuário não pode ser nulo ou vazio");
         } else if (content == null || content.trim().isEmpty()) {
-            throw new Exception("Usuário inválido");
+            throw new Exception("O conteúdo não pode ser nulo nem vazio");
         }
         Users userToPost = usersList.getOneUser(userName, usersList);
         Posts newPosts = new Posts(content, LocalDateTime.now());
@@ -64,6 +64,9 @@ public class Users {
         }
         Users userWhoWillFollow = usersList.getOneUser(nameOfUserWhoWillFollow, usersList);
         Users userToFollow = usersList.getOneUser(nameOfUserToFollow, usersList);
+        if (userWhoWillFollow == userToFollow) {
+            throw new Exception("Você não pode se seguir");
+        }
         userWhoWillFollow.following.add(userToFollow);
     }
 

@@ -12,16 +12,18 @@ public class UsersList {
         return users;
     }
 
-    public List<Posts> showPostsFromUser(String userName) throws Exception {
+    public String showPostsFromUser(String userName) throws Exception {
         if (userName == null || userName.trim().isEmpty()){
             throw new Exception("O usuário não pode ser nulo ou vazio");
         }
-        for (Users users : users) {
+        for (Users user : users) {
             if (users.equals(userName)) {
-                return users.getPosts();
+                for (Posts post : user.getPosts()) {
+                    return "> " + user.getName() + " -> " + post;
+                }
             }
         }
-        return null;
+        return userName + " ainda não publicou nada";
     }
 
     public Users getOneUser(String userName, UsersList usersList) throws Exception {
