@@ -18,7 +18,7 @@ public class Users {
      * Construtor da classe Users
      * @param userName Nome do usuário
      * @param usersList Lista de usuários que armazena os atuais usuários
-     * @throws Exception O nome de usuário deve ser único
+     * @throws Exception O nome de usuário deve ser único, e não pode ser vazio ou nulo
      * */
     public Users(String userName, UsersList usersList) throws Exception { //Completo
         if (usersList.hasUser(userName)){
@@ -35,13 +35,13 @@ public class Users {
      * @param userName Usuário que vai fazer a nova publicação
      * @param content Conteudo da nova publicação
      * @param usersList Lista de usuários que armazena o usuário que vai fazer a postagem
-     * @throws Exception O nome do usuário nem o conteúdo da publicação podem ser nulos ou vazios
+     * @throws Exception O nome do usuário deve estar registrado, e nem ele nem o conteúdo da publicação podem ser nulos ou vazios
      * */
     public void makePost(String userName, String content, UsersList usersList) throws  Exception { //Completo
         if (userName == null || userName.trim().isEmpty()) {
             throw new Exception("O nome do usuário não pode ser nulo ou vazio");
         } else if (content == null || content.trim().isEmpty()) {
-            throw new Exception("O conteúdo da publicação não pode ser nulo ou vazio");
+            throw new Exception("Usuário inválido");
         }
         Users userToPost = usersList.getOneUser(userName, usersList);
         Posts newPosts = new Posts(content, LocalDateTime.now());

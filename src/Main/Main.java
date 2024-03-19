@@ -42,18 +42,18 @@ public class Main {
                 }
                 usersList.insertUser(user);
                 System.out.println("Novo usuário " + user.getName() + " criado com sucesso");
-            } else if (option == makePost) {
+            } else if (option == makePost) {  //completo
                 sc.nextLine();
                 System.out.print("Meu usuário: > ");
                 String myUser = sc.nextLine();
-                if (!usersList.hasUser(myUser)){
-                    System.out.println("Você deve ter um usuário para poder postar algo.");
-                    System.out.println("Nome de usuário da nova conta: > ");
+                try {
+                    user = usersList.getOneUser(myUser, usersList);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Escolha outro nome de usuário: > ");
                     myUser = sc.nextLine();
                     user = new Users(myUser, usersList);
                     usersList.insertUser(user);
-                } else {
-                    user = usersList.getOneUser(myUser, usersList);
                 }
                 System.out.print("Conteúdo da nova postagem: ->");
                 String content = sc.nextLine();
@@ -61,12 +61,10 @@ public class Main {
                     user.makePost(myUser, content, usersList);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                    System.out.println();
                     System.out.print("Conteúdo da nova postagem: ->");
                     content = sc.nextLine();
                     user.makePost(myUser, content, usersList);
                 }
-
                 System.out.println("Postado com sucesso no mural de " + user.getName());
             } else if (option == followUser) { //acho que tá em 90%
                 sc.nextLine();
