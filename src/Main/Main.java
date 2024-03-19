@@ -50,7 +50,7 @@ public class Main {
                     user = usersList.getOneUser(myUser, usersList);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                    System.out.print("Digite outro nome de usuário: > ");
+                    System.out.print("Digite o novo nome de usuário: > ");
                     myUser = sc.nextLine();
                     user = new Users(myUser, usersList);
                     usersList.insertUser(user);
@@ -90,15 +90,15 @@ public class Main {
                     user.followUser(myUser, userNameToFollow, usersList);
                 }
                 System.out.println(user.getName() + " agora segue " + userNameToFollow);
-            } else if (option == showPostsFromUser) { //completo 98% falta só trocar as escritas
+            } else if (option == showPostsFromUser) { //completo
                 sc.nextLine();
-                System.out.print("Usuario para ver o mural: > ");
+                System.out.print("Usuário para ver o mural: > ");
                 String userToShowMural = sc.nextLine();
                 try {
                     System.out.println(usersList.showPostsFromUser(userToShowMural));
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                    System.out.print("Usuario para ver o mural: > ");
+                    System.out.print("Usuário para ver o mural: > ");
                     userToShowMural = sc.nextLine();
                     System.out.println(usersList.showPostsFromUser(userToShowMural));
                 }

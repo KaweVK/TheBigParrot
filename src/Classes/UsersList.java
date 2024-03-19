@@ -17,10 +17,12 @@ public class UsersList {
             throw new Exception("O usuário não pode ser nulo ou vazio");
         }
         for (Users user : users) {
-            if (users.equals(userName)) {
+            if (user.getName().equals(userName)) {
+                String posts = "";
                 for (Posts post : user.getPosts()) {
-                    return "> " + user.getName() + " -> " + post;
+                    posts += "> " + user.getName() + " -> " + post + "\n";
                 }
+                return posts;
             }
         }
         return userName + " ainda não publicou nada";
