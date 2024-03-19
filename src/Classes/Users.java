@@ -74,12 +74,16 @@ public class Users {
      * Método para mostrar o mural que vai aparecer para o usuário de acordo com os usuários que ele segue
      * @param usersList Lista de usuários onde estão os usuários que podem aparecer no mural
      * */
-    public void showMural(UsersList usersList) { //void não retorna nada, jegue
+    public String showMural(UsersList usersList) {
+        String mural = "";
         for (Users user : usersList.getUsers()){
             if (following.contains(user) || user.getName().equals(name)){
-                user.getPosts();
+                for (Posts post : user.getPosts()){
+                    mural += "> " + user.getName() + " -> " + post + "\n";
+                }
             }
         }
+        return mural;
     }
 
     //completos:

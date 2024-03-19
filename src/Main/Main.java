@@ -118,18 +118,20 @@ public class Main {
                 System.out.println("Usuários que você segue: " + user.getFollowing());
             } else if (option == showMural) {
                 sc.nextLine();
-                System.out.println("Meu usuário: > ");
+                System.out.print("Meu usuário: > ");
                 String myUser = sc.nextLine();
-                if (!usersList.hasUser(myUser)){
-                    System.out.println("Você deve ter um usuário para poder postar algo.");
-                    System.out.println("Digite o nome de usuário da nova conta: ");
+                try {
+                    user = usersList.getOneUser(myUser, usersList);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Nome de usuário da nova conta: ");
                     myUser = sc.nextLine();
                     user = new Users(myUser, usersList);
                     usersList.insertUser(user);
-                } else {
-                    user = usersList.getOneUser(myUser, usersList);
                 }
-                user.showMural(usersList);
+                System.out.println();
+                System.out.println("Mural de " + user.getName() + ": \n");
+                System.out.println(user.showMural(usersList));;
             }
 
         }while (option != exit);
