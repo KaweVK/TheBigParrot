@@ -134,7 +134,7 @@ public class Main {
                 }
                 System.out.println();
                 System.out.println("Mural de " + user.getName() + ": \n");
-                System.out.println(user.showMural(usersList));;
+                System.out.println(user.showMural(usersList));
             }
 
         }while (option != exit);
